@@ -1,0 +1,15 @@
+#!/bin/bash
+
+rofi -sidebar-mode \
+-modi run,drun,window \
+-lines 12 \
+-padding 18 \
+-width 60 \
+-location 0 \
+-show drun \
+-columns 3 \
+-font "DejaVu Sans Mono 10" \
+-color-window "#222222, #222222, #b1b4b3" \
+-color-normal "#222222, #b1b4b3, #222222, #005577, #b1b4b3" \
+-color-active "#222222, #b1b4b3, #222222, #007763, #b1b4b3" \
+-color-urgent "#222222, #b1b4b3, #222222, #77003d, #b1b4b3" 
