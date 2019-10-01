@@ -108,7 +108,7 @@ client.urgent           #900000 #900000 #ffffff
 ## Change window border - remove window title
 for_window [class=".*"] border pixel 2
 # set inner/outer space
-gaps inner 5
+gaps inner 0
 gaps outer 0
 
 # Bind buttons
@@ -287,7 +287,9 @@ mode $sysmenu {
 
 # Custom KeyBinds
 bindsym $mod+Shift+w exec --no-startup-id firefox
-bindsym Print exec --no-startup-id xfce4-screenshooter
+bindsym Print exec --no-startup-id gnome-screenshot -b -f $HOME/ScreenShot/$(date +%Y%m%d%H%M%S).png
+bindsym Shift+Print exec --no-startup-id gnome-screenshot -w -f $HOME/ScreenShot/$(date +%Y%m%d%H%M%S).png
+bindsym Mod1+Sys_Req exec --no-startup-id gnome-screenshot -a -f $HOME/ScreenShot/$(date +%Y%m%d%H%M%S).png
 bindsym $mod+Shift+i exec --no-startup-id urxvt -e mocp -T tty  
 bindsym $mod+Shift+o exec --no-startup-id urxvt -e ranger
 bindsym $mod+Shift+u exec --no-startup-id urxvt -e tty-clock -C 2 -c -D
@@ -303,4 +305,4 @@ for_window [window_role="task_dialog"] floating enable;border normal
 #Fle save and other "gtk choise" dialog 
 for_window [window_role="GtkFileChooserDialog"] floating enable;
 # screenshooter float
-for_window [class="Xfce4-screenshooter"] floating enable
+for_window [class="gnome-screenshot"] floating enable
