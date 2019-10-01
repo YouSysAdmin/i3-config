@@ -12,4 +12,4 @@
 `mocp`  
 `ranger`  
 `tty-clock`
-`xfce4-screenshooter` 
+`gnome-screenshot` 
