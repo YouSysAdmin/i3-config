@@ -29,6 +29,16 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
+
+# Startup volumeicon system tray applet volumeicon or pasystray
+exec --no-startup-id volumeicon
+#exec --no-startup-id pasystray
+
+# Restore terminal workspace
+exec --no-startup-id i3-msg "workspace $ws1; append_layout $HOME/.config/i3/ws1.json"
+exec --no-startup-id i3-sensible-terminal -title mainconsole
+exec --no-startup-id i3-sensible-terminal -title secondconsole
+exec --no-startup-id i3-sensible-terminal -title ttyclock -e tty-clock -C 2 -c -D
 #################################################################################
 
 # Multimedia buttons
@@ -296,7 +306,7 @@ bindsym $mod+Shift+u exec --no-startup-id urxvt -e tty-clock -C 2 -c -D
 
 # Use "xprop" for get windows_class and other params
 # assign window to workspace
-assign [class="firefox"] $ws3 #Firefox to workspace 3
+assign [class="firefox"] $ws3 #FireAfox to workspace 3
 assign [class="code-oss"] $ws2 #VSCode to workspace 2
 
 # browser pop-ups
