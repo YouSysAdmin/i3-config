@@ -6,7 +6,8 @@
 `feh`  
 `devmon`  
 `network-manager-applet`  
-`xbacklight`  
+`xbacklight` 
+`notification-daemon` 
 
 # Additional software
 `mocp`  
