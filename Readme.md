@@ -6,11 +6,12 @@
 `feh`  
 `devmon`  
 `network-manager-applet`  
-`xbacklight` 
-`notification-daemon` 
+`xbacklight`  
+`notification-daemon`  
+`lightdm-webkit2-greeter`
 
 # Additional software
 `mocp`  
 `ranger`  
-`tty-clock`
+`tty-clock`  
 `gnome-screenshot` 
