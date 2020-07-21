@@ -10,11 +10,13 @@ floating_modifier $mod
 # Hide cursour
 exec --no-startup-id unclutter
 
+exec --no-startup-id remmina -i
+
 # Set layout EN/RU; Win+Space
 exec_always "setxkbmap -layout us,ru -option 'grp:win_space_toggle'"
 
 # notification
-exec --no-startup-id "/usr/lib/notification-daemon-1.0/notification-daemon"
+#exec --no-startup-id "/usr/lib/notification-daemon-1.0/notification-daemon"
 
 # X11 keyboard layout indicator
 exec --no-startup-id "gxkb"
@@ -22,15 +24,19 @@ exec --no-startup-id "gxkb"
 # Change desktop background
 exec --no-startup-id "feh --bg-scale $HOME/.config/i3/img/wallhaven.jpg"
 
+# udiskie
+exec --no-startup-id "udiskie -AsN"
+
 # Capton
-exec --no-startup-id /usr/bin/compton --config $HOME/.config/i3/compton.conf
+#exec --no-startup-id /usr/bin/compton --config $HOME/.config/i3/compton.conf
+exec --no-startup-id /usr/bin/picom --config $HOME/.config/i3/compton.conf
 
 # devmon
-exec --no-startup-id "devmon --no-gui"
+#exec --no-startup-id "devmon --no-gui"
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy-dualmonitor #--nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -42,9 +48,9 @@ exec --no-startup-id volumeicon
 
 # Restore terminal workspace
 exec --no-startup-id i3-msg "workspace $ws1; append_layout $HOME/.config/i3/ws1.json"
-exec --no-startup-id sleep 0.2s; i3-sensible-terminal -title mainconsole
-exec --no-startup-id sleep 0.2s; i3-sensible-terminal -title secondconsole
-exec --no-startup-id sleep 0.2s; i3-sensible-terminal -title ttyclock -e tty-clock -C 2 -c -D
+exec --no-startup-id sleep 1s; i3-sensible-terminal -title mainconsole
+exec --no-startup-id sleep 1s; i3-sensible-terminal -title secondconsole
+exec --no-startup-id sleep 1s; i3-sensible-terminal -title ttyclock -e tty-clock -C 2 -c -D
 #################################################################################
 
 # Multimedia buttons
@@ -55,9 +61,9 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 10%+ && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 10%- && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id amixer set Master 1+ toggle  && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 ################################################################################
 
@@ -104,8 +110,8 @@ smart_borders on
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:DejaVu Sans Mono 8
-#font pango:Pragmata Pro Mono 8
+#font pango:DejaVu Sans Mono 8
+font pango:Pragmata Pro Mono 8
 
 # Change title/border interface color
 # arch blue 		#1793D1
@@ -131,7 +137,7 @@ gaps outer 0
 # Bind buttons
 ################################################################################
 # lock 
-bindsym Pause exec --no-startup-id i3lock-fancy --nofork
+bindsym Pause exec --no-startup-id i3lock-fancy-dualmonitor #--nofork
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -309,7 +315,10 @@ bindsym Shift+Print exec --no-startup-id gnome-screenshot -w -f $HOME/ScreenShot
 bindsym Mod1+Sys_Req exec --no-startup-id gnome-screenshot -a -f $HOME/ScreenShot/$(date +%Y%m%d%H%M%S).png
 bindsym $mod+Shift+i exec --no-startup-id urxvt -e mocp -T tty  
 bindsym $mod+Shift+o exec --no-startup-id urxvt -e ranger
-bindsym $mod+Shift+u exec --no-startup-id urxvt -e tty-clock -C 2 -c -D
+#bindsym $mod+Shift+u exec --no-startup-id urxvt -e tty-clock -C 2 -c -D
+
+# Moving workspaces between screens 
+bindsym $mod+p move workspace to output right
 
 # Use "xprop" for get windows_class and other params
 # assign window to workspace
@@ -320,6 +329,12 @@ assign [class="code-oss"] $ws2 #VSCode to workspace 2
 for_window [window_role="pop-up"] floating enable;border normal
 for_window [window_role="task_dialog"] floating enable;border normal
 #Fle save and other "gtk choise" dialog 
-for_window [window_role="GtkFileChooserDialog"] floating enable;
+for_window [window_role="GtkFileChooserDialog"] floating enable resize set 640 480;
 # screenshooter float
 for_window [class="gnome-screenshot"] floating enable
+# Thunderbird write message windows
+for_window [window_role="Msgcompose"] floating enable
+
+exec (xrandr | grep -E 'connected .*? 310mm x 170mm' &> /dev/null) && xrandr --output eDP1 --auto --primary
+exec (xrandr | grep -E 'connected .*? 300mm x 300mm' &> /dev/null) && xrandr --output HDMI-1 --auto --right-of eDP1
+exec (xrandr | grep -E 'connected .*? 380mm x 310mm' &> /dev/null) && xrandr --output VGA1 --auto --right-of eDP1

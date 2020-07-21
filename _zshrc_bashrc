@@ -1,2 +1,3 @@
 # fix error TERM env in ssh and other
 export TERM='xterm-256color'
+export COLORTERM=truecolor

@@ -61,7 +61,7 @@
                "y": 0
             },
             "name": "ttyclock",
-            "percent": 0.22,
+            "percent": 0.16,
             "swallows": [
                {
                // "class": "^URxvt$",
